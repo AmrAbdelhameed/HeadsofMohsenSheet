@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "234035530986",
+    "firebase_url": "https://mohsenssheet.firebaseio.com",
+    "project_id": "mohsenssheet",
+    "storage_bucket": "mohsenssheet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234035530986:android:a2ad8c4c96b13ec1",
+        "android_client_info": {
+          "package_name": "com.example.amr.headsofmohsensheet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234035530986-cf5mamfvm919sqifk6aqdqnbp54k2j1n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSIG2bhDDZTNMjrOSpDzQwaEXS1gRm7HQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
