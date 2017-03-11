@@ -2,6 +2,8 @@ package com.example.amr.headsofmohsensheet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -89,25 +91,29 @@ public class Register extends AppCompatActivity {
         } else if (txtPassword.getText().toString().isEmpty()) {
             Toast.makeText(Register.this, "Forget Enter Your Password", Toast.LENGTH_SHORT).show();
         } else {
-            final ProgressDialog progressDialog = ProgressDialog.show(Register.this, "Please wait...", "Processing...", true);
-            (firebaseAuth.createUserWithEmailAndPassword(txtEmailAddress, txtPassword.getText().toString()))
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
+            if (isNetworkAvailable()) {
+                final ProgressDialog progressDialog = ProgressDialog.show(Register.this, "Please wait...", "Processing...", true);
+                (firebaseAuth.createUserWithEmailAndPassword(txtEmailAddress, txtPassword.getText().toString()))
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
 
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
-                                FirebaseAuth.getInstance().signOut();
-                                Intent i = new Intent(Register.this, Login.class);
-                                startActivity(i);
-                                finish();
-                            } else {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Register.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                    FirebaseAuth.getInstance().signOut();
+                                    Intent i = new Intent(Register.this, Login.class);
+                                    startActivity(i);
+                                    finish();
+                                } else {
 //                                Log.e("ERROR", task.getException().toString());
-                                Toast.makeText(Register.this,"InValid", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Register.this, "Invalid .. Please Try Again", Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
+                        });
+            } else {
+                Toast.makeText(Register.this, "No Internet", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -124,5 +130,12 @@ public class Register extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

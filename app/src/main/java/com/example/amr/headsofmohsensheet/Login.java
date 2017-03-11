@@ -2,6 +2,8 @@ package com.example.amr.headsofmohsensheet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -97,28 +99,30 @@ public class Login extends AppCompatActivity {
         } else if (txtPwd.getText().toString().isEmpty()) {
             Toast.makeText(Login.this, "Forget Enter Your Password", Toast.LENGTH_SHORT).show();
         } else {
+            if (isNetworkAvailable()) {
+                final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait...", "Proccessing...", true);
 
-            final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait...", "Proccessing...", true);
+                (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin, txtPwd.getText().toString()))
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
 
-            (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin, txtPwd.getText().toString()))
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
-
-                            if (task.isSuccessful()) {
-                                Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(Login.this, MainActivity.class);
-                                startActivity(i);
-                                finish();
-                            } else {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(Login.this, MainActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                } else {
 //                                Log.e("ERROR", task.getException().toString());
-                                Toast.makeText(Login.this, "InValid", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Login.this, "Invalid .. Please Try Again", Toast.LENGTH_LONG).show();
+                                }
                             }
-                        }
-                    });
+                        });
+            } else {
+                Toast.makeText(Login.this, "No Internet", Toast.LENGTH_SHORT).show();
+            }
         }
-
     }
 
     public void btnRegister(View v) {
@@ -126,8 +130,10 @@ public class Login extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void btnForget(View v) {
-        Toast.makeText(Login.this, "F", Toast.LENGTH_SHORT).show();
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-
 }
