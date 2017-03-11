@@ -3,6 +3,7 @@ package com.example.amr.headsofmohsensheet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -35,8 +36,10 @@ public class AddFriend extends AppCompatActivity {
     String usu = "";
     String userr_id = "";
     private String userId;
+    String email1;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +49,16 @@ public class AddFriend extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        pref = getApplication().getSharedPreferences("Options1", MODE_PRIVATE);
+        email1 = pref.getString("head1", "");
+
         firebaseAuth = FirebaseAuth.getInstance();
         // getuserId
         user = firebaseAuth.getCurrentUser();
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
-        mFirebaseDatabase = mFirebaseInstance.getReference(user.getUid());
+        mFirebaseDatabase = mFirebaseInstance.getReference(email1);
 
         name = (TextView) findViewById(R.id.editTextName);
         phone = (TextView) findViewById(R.id.editTextPhone);
@@ -275,7 +281,7 @@ public class AddFriend extends AppCompatActivity {
             int Value = extras.getInt("id");
             if (Value > 0) {
                 if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter Member's Name ... ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Try Again ... ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNetworkAvailable()) {
                         updateUser(nname, nemail, nphone, nstreet, ndescrip, userr_id);
@@ -289,7 +295,7 @@ public class AddFriend extends AppCompatActivity {
                 }
             } else {
                 if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter Member's Name ... ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter Member ... ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNetworkAvailable()) {
                         createUser(nname, nemail, nphone, nstreet, ndescrip);

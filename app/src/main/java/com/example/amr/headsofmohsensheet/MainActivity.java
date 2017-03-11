@@ -3,6 +3,7 @@ package com.example.amr.headsofmohsensheet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -36,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser user;
     ListView lv;
     TextView textempty;
+    SharedPreferences.Editor editor;
     ArrayAdapter<String> adapter;
+    SharedPreferences pref;
+    String email1;
     ArrayList<String> specimens_name, specimens_email, specimens_phone, specimens_street, specimens_desc, specimens_id;
     int size_arraylist = 0;
     DatabaseReference databaseReference;
@@ -45,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pref = getApplication().getSharedPreferences("Options", MODE_PRIVATE);
+        email1 = pref.getString("head", "");
 
         specimens_name = new ArrayList<>();
         specimens_email = new ArrayList<>();
@@ -56,14 +63,14 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-        //Toast.makeText(ShowContacts.this, user.getUid(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, email1, Toast.LENGTH_SHORT).show();
 
         lv = (ListView) findViewById(R.id.listView1);
         textempty = (TextView) findViewById(R.id.textempty);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference();
-        databaseReference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(email1).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -109,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
                 int id_To_Search = arg2 + 1;
 
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("Options1", MODE_PRIVATE);
+                editor = pref.edit();
+                editor.putString("head1", email1);
+                editor.commit();
+
                 Bundle dataBundle = new Bundle();
 
                 dataBundle.putInt("id", id_To_Search);
@@ -151,6 +163,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (a == R.id.item1) {
             if (isNetworkAvailable()) {
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("Options1", MODE_PRIVATE);
+                editor = pref.edit();
+                editor.putString("head1", email1);
+                editor.commit();
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("id", 0);
                 Intent intent = new Intent(getApplicationContext(), AddFriend.class);
@@ -194,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
                             if (size_arraylist > 0) {
 
-                                RemoveAllContact(user.getUid());
+                                RemoveAllContact(email1);
                                 Toast.makeText(getApplicationContext(), "Deleted All Data Successfully", Toast.LENGTH_SHORT).show();
                                 finish();
                                 startActivity(getIntent());
