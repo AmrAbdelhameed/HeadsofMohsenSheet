@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Mo7sen_OSC</string>
+
+    <string-array name="brew_array">
+        <item>IT</item>
+        <item>HR</item>
+        <item>PR</item>
+        <item>LR</item>
+        <item>FR</item>
+        <item>Art</item>
+        <item>CCC</item>
+        <item>Linux</item>
+        <item>Laravel</item>
+        <item>Projects</item>
+        <item>Blender</item>
+        <item>English_Heros</item>
+    </string-array>
 </resources>

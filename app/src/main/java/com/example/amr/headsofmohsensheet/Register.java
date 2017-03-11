@@ -10,9 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -34,13 +35,26 @@ public class Register extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtPassword = (EditText) findViewById(R.id.txtPasswordRegistration);
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioG);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                RadioButton radioButton = (RadioButton) findViewById(i);
 
-                String s = radioButton.getText().toString();
+        Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.brew_array,
+                        android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+
+        staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                String s = ((String) parent.getItemAtPosition(position));
+
                 if (s.equals("IT")) {
                     txtEmailAddress = "sara123@gmail.com";
                 }
@@ -78,17 +92,20 @@ public class Register extends AppCompatActivity {
                     txtEmailAddress = "shrook123@gmail.com";
                 }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
         });
+
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void btnRegistrationUser_Click(View v) {
 //        Toast.makeText(Register.this, txtEmailAddress + txtPassword.getText().toString(), Toast.LENGTH_SHORT).show();
-        if (txtEmailAddress == null && txtPassword.getText().toString().isEmpty()) {
-            Toast.makeText(Register.this, "Forget Select Your Committe Enter Your Password", Toast.LENGTH_SHORT).show();
-        } else if (txtEmailAddress == null) {
-            Toast.makeText(Register.this, "Forget Select Your Committe", Toast.LENGTH_SHORT).show();
-        } else if (txtPassword.getText().toString().isEmpty()) {
+
+        if (txtPassword.getText().toString().isEmpty()) {
             Toast.makeText(Register.this, "Forget Enter Your Password", Toast.LENGTH_SHORT).show();
         } else {
             if (isNetworkAvailable()) {

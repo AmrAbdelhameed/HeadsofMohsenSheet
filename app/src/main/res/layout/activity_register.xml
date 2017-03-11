@@ -19,86 +19,10 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/radioG"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true">
-
-                <RadioButton
-                    android:id="@+id/rad1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="IT" />
-
-                <RadioButton
-                    android:id="@+id/rad4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="PR" />
-
-                <RadioButton
-                    android:id="@+id/rad5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="HR" />
-
-                <RadioButton
-                    android:id="@+id/rad6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="LR" />
-
-                <RadioButton
-                    android:id="@+id/rad7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="FR" />
-
-                <RadioButton
-                    android:id="@+id/rad8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Art" />
-
-                <RadioButton
-                    android:id="@+id/rad9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="CCC" />
-
-
-                <RadioButton
-                    android:id="@+id/rad11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Linux" />
-
-                <RadioButton
-                    android:id="@+id/rad10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Blender" />
-
-                <RadioButton
-                    android:id="@+id/rad3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Laravel" />
-
-                <RadioButton
-                    android:id="@+id/rad2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Projects" />
-
-                <RadioButton
-                    android:id="@+id/rad12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="English Heros" />
-            </RadioGroup>
+            <Spinner
+                android:id="@+id/static_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/txtPasswordRegistration"
