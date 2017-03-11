@@ -3,7 +3,8 @@ package com.example.amr.headsofmohsensheet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Toast.makeText(MainActivity.this, FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-
         specimens_name = new ArrayList<>();
         specimens_email = new ArrayList<>();
         specimens_phone = new ArrayList<>();
@@ -73,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
 
                 for (DataSnapshot child : children) {
                     String uid = child.getKey();
-                    String name = child.getValue(Contact.class).getName();
-                    String email = child.getValue(Contact.class).getEmail();
-                    String phone = child.getValue(Contact.class).getPhone();
-                    String street = child.getValue(Contact.class).getAddress();
-                    String desc = child.getValue(Contact.class).getDescription();
+                    String name = child.getValue(Member.class).getName();
+                    String email = child.getValue(Member.class).getNumberoftasks();
+                    String phone = child.getValue(Member.class).getNumberofmeetings();
+                    String street = child.getValue(Member.class).getTask_mo7sens();
+                    String desc = child.getValue(Member.class).getMeetings_mo7sens();
                     specimens_name.add(name);
                     specimens_email.add(email);
                     specimens_phone.add(phone);
@@ -125,19 +124,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-                                           int index, long arg3) {
-
-                if (!specimens_phone.get(index).isEmpty()) {
-                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", specimens_phone.get(index), null)));
-                } else {
-                    Toast.makeText(MainActivity.this, "There is not phone of this contact", Toast.LENGTH_SHORT).show();
-                }
-                return true;
-            }
-        });
+//        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//
+//            public boolean onItemLongClick(AdapterView<?> arg0, View v,
+//                                           int index, long arg3) {
+//
+//                if (!specimens_phone.get(index).isEmpty()) {
+//                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", specimens_phone.get(index), null)));
+//                } else {
+//                    Toast.makeText(MainActivity.this, "There is not phone of this contact", Toast.LENGTH_SHORT).show();
+//                }
+//                return true;
+//            }
+//        });
     }
 
     @Override
@@ -151,32 +150,40 @@ public class MainActivity extends AppCompatActivity {
         int a = item.getItemId();
 
         if (a == R.id.item1) {
-            Bundle dataBundle = new Bundle();
-            dataBundle.putInt("id", 0);
-            Intent intent = new Intent(getApplicationContext(), AddFriend.class);
-            intent.putExtras(dataBundle);
-            startActivity(intent);
+            if (isNetworkAvailable()) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("id", 0);
+                Intent intent = new Intent(getApplicationContext(), AddFriend.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
 
         if (a == R.id.item2) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Do you want to Logout ?!")
-                    .setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            FirebaseAuth.getInstance().signOut();
-                            finish();
-                            Intent intent = new Intent(getApplicationContext(), Login.class);
-                            startActivity(intent);
-                        }
-                    }).setNegativeButton("no", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    // Nothing
-                }
-            });
-            AlertDialog d = builder.create();
-            d.setTitle("Are you sure");
-            d.show();
+            if (isNetworkAvailable()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Do you want to Logout ?!")
+                        .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                FirebaseAuth.getInstance().signOut();
+                                finish();
+                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Nothing
+                    }
+                });
+                AlertDialog d = builder.create();
+                d.setTitle("Are you sure");
+                d.show();
+            } else {
+                Toast.makeText(MainActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
+            }
             return true;
         }
         if (a == R.id.item3) {
@@ -234,5 +241,12 @@ public class MainActivity extends AppCompatActivity {
             moveTaskToBack(true);
         }
         return super.onKeyDown(keycode, event);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

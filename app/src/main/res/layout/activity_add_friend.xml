@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="Number of Tasks"
+                android:text="Name"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -32,14 +32,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
-                android:inputType="number" />
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/textemail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="Number of Meetings"
+                android:text="Number of Tasks"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="Task Mo7sens"
+                android:text="Number of Meetings"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -69,7 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="Meetings Mo7sens"
+                android:text="Task Mo7sens"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:text="Total Mo7sens"
+                android:text="Meetings Mo7sens"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
@@ -102,7 +102,7 @@
                 android:layout_alignRight="@+id/textView3"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginTop="16dp"
-                android:background="#3F51B5"
+                android:background="#3D9471"
                 android:onClick="run"
                 android:text="Done"
                 android:textAllCaps="false"

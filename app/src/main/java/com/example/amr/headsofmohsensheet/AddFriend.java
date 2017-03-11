@@ -3,6 +3,8 @@ package com.example.amr.headsofmohsensheet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -199,7 +201,7 @@ public class AddFriend extends AppCompatActivity {
             userId = mFirebaseDatabase.push().getKey();
         }
 
-        Contact contact = new Contact(name, email, phone, address, description);
+        Member contact = new Member(name, email, phone, address, description);
 
         mFirebaseDatabase.child(userId).setValue(contact);
 
@@ -212,13 +214,13 @@ public class AddFriend extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Contact contact = dataSnapshot.getValue(Contact.class);
+                Member contact = dataSnapshot.getValue(Member.class);
 
                 if (contact == null) {
-                    Log.e(TAG, "Contact data is null!");
+                    Log.e(TAG, "Member data is null!");
                     return;
                 }
-                Log.e(TAG, "Contact data is changed!" + contact.name + ", " + contact.email + ", " + contact.phone + ", " + contact.address + ", " + contact.description);
+                Log.e(TAG, "Member data is changed!" + contact.name + ", " + contact.numberoftasks + ", " + contact.numberofmeetings + ", " + contact.task_mo7sens + ", " + contact.meetings_mo7sens);
 
             }
 
@@ -236,13 +238,13 @@ public class AddFriend extends AppCompatActivity {
             mFirebaseDatabase.child(id).child("name").setValue(name);
         }
 
-        mFirebaseDatabase.child(id).child("email").setValue(email);
+        mFirebaseDatabase.child(id).child("numberoftasks").setValue(email);
 
-        mFirebaseDatabase.child(id).child("phone").setValue(phone);
+        mFirebaseDatabase.child(id).child("numberofmeetings").setValue(phone);
 
-        mFirebaseDatabase.child(id).child("address").setValue(address);
+        mFirebaseDatabase.child(id).child("task_mo7sens").setValue(address);
 
-        mFirebaseDatabase.child(id).child("description").setValue(description);
+        mFirebaseDatabase.child(id).child("meetings_mo7sens").setValue(description);
 
     }
 
@@ -250,13 +252,13 @@ public class AddFriend extends AppCompatActivity {
 
         mFirebaseDatabase.child(id).child("name").removeValue();
 
-        mFirebaseDatabase.child(id).child("email").removeValue();
+        mFirebaseDatabase.child(id).child("numberoftasks").removeValue();
 
-        mFirebaseDatabase.child(id).child("phone").removeValue();
+        mFirebaseDatabase.child(id).child("numberofmeetings").removeValue();
 
-        mFirebaseDatabase.child(id).child("address").removeValue();
+        mFirebaseDatabase.child(id).child("task_mo7sens").removeValue();
 
-        mFirebaseDatabase.child(id).child("description").removeValue();
+        mFirebaseDatabase.child(id).child("meetings_mo7sens").removeValue();
 
     }
 
@@ -273,26 +275,40 @@ public class AddFriend extends AppCompatActivity {
             int Value = extras.getInt("id");
             if (Value > 0) {
                 if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Try Again ... ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter Member's Name ... ", Toast.LENGTH_SHORT).show();
                 } else {
-                    updateUser(nname, nemail, nphone, nstreet, ndescrip, userr_id);
-                    Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (isNetworkAvailable()) {
+                        updateUser(nname, nemail, nphone, nstreet, ndescrip, userr_id);
+                        Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(AddFriend.this, "No Internet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             } else {
                 if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Try Again ... ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please Enter Member's Name ... ", Toast.LENGTH_SHORT).show();
                 } else {
-                    createUser(nname, nemail, nphone, nstreet, ndescrip);
-                    Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if (isNetworkAvailable()) {
+                        createUser(nname, nemail, nphone, nstreet, ndescrip);
+                        Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(AddFriend.this, "No Internet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

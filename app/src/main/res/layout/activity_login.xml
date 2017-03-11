@@ -54,7 +54,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal|top"
                     android:layout_marginTop="20dp"
-                    android:background="#3F51B5"
+                    android:background="#3D9471"
                     android:onClick="btnUserLogin_Click"
                     android:text="Login"
                     android:textAllCaps="false"

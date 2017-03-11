@@ -122,6 +122,9 @@ public class Login extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
+
+                                    // Toast.makeText(Login.this, txtEmailLogin.substring(0, txtEmailLogin.length() - 10), Toast.LENGTH_SHORT).show();
+
                                     Intent i = new Intent(Login.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
