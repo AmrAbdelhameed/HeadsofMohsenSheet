@@ -137,11 +137,6 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    public void btnRegister(View v) {
-        Intent i = new Intent(Login.this, Register.class);
-        startActivity(i);
-    }
-
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);

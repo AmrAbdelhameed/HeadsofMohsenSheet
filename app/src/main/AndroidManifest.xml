@@ -22,9 +22,6 @@
         </activity>
         <activity android:name=".MainActivity">
         </activity>
-        <activity android:name=".Register"
-            android:label="Registration Form">
-        </activity>
 
     </application>
 
