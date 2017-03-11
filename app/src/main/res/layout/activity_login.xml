@@ -10,52 +10,60 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.amr.headsofmohsensheet.Login">
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <Spinner
-                android:id="@+id/static_spinner"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/txtPasswordLogin"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignLeft="@+id/editText"
-                android:layout_alignStart="@+id/editText"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/amr3"
-                android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:ems="10"
-                android:gravity="left"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:padding="15dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="20dp"
-                android:background="#3F51B5"
-                android:onClick="btnUserLogin_Click"
-                android:text="Login"
-                android:textAllCaps="false"
-                android:textColor="#ffffff"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                <Spinner
+                    android:id="@+id/static_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
 
-        </LinearLayout>
-    </ScrollView>
+                <EditText
+                    android:id="@+id/txtPasswordLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignLeft="@+id/editText"
+                    android:layout_alignStart="@+id/editText"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/amr3"
+                    android:drawableLeft="@drawable/ic_lock_outline_black_24dp"
+                    android:drawablePadding="@dimen/activity_horizontal_margin"
+                    android:ems="10"
+                    android:gravity="left"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="15dp" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="20dp"
+                    android:background="#3F51B5"
+                    android:onClick="btnUserLogin_Click"
+                    android:text="Login"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
 </RelativeLayout>
