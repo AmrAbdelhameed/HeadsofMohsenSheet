@@ -11,7 +11,8 @@ public class Member {
     String task_mo7sens;
     String meetings_mo7sens;
 
-    public Member() {}
+    public Member() {
+    }
 
     public String getName() {
         return name;

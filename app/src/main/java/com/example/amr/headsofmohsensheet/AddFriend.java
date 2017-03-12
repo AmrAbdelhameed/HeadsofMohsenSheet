@@ -247,7 +247,7 @@ public class AddFriend extends AppCompatActivity {
                 return true;
 
             case R.id.home:
-                Toast.makeText(AddFriend.this, "braaaa", Toast.LENGTH_SHORT).show();
+                finish();
                 return true;
 
             default:

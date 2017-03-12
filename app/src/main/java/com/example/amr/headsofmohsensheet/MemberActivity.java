@@ -1,55 +1,34 @@
 package com.example.amr.headsofmohsensheet;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-
-public class Login extends AppCompatActivity {
-    private EditText txtPwd;
+public class MemberActivity extends AppCompatActivity {
     String txtEmailLogin;
-    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_member);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(Login.this, MainActivity.class));
-            finish();
-        }
-
-        setContentView(R.layout.activity_login);
-
-        txtPwd = (EditText) findViewById(R.id.txtPasswordLogin);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
-                .createFromResource(this, R.array.brew_array,
-                        android.R.layout.simple_spinner_item);
+                .createFromResource(this, R.array.brew_array, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
         staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
         staticSpinner.setAdapter(staticAdapter);
 
         staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,42 +81,40 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void btnUserLogin_Click(View v) {
 
-//        Toast.makeText(Login.this, txtEmailLogin + txtPwd.getText().toString(), Toast.LENGTH_SHORT).show();
-        if (txtPwd.getText().toString().isEmpty()) {
-            Toast.makeText(Login.this, "Forget Enter Your Password", Toast.LENGTH_SHORT).show();
+        if (isNetworkAvailable()) {
+
+            //  Toast.makeText(MemberActivity.this, txtEmailLogin.substring(0, txtEmailLogin.length() - 10), Toast.LENGTH_SHORT).show();
+
+            Bundle dataBundle = new Bundle();
+            dataBundle.putString("keey", txtEmailLogin.substring(0, txtEmailLogin.length() - 10));
+            Intent intent = new Intent(MemberActivity.this, ShowAllMembersAsMember.class);
+            intent.putExtras(dataBundle);
+            startActivity(intent);
+            finish();
         } else {
-            if (isNetworkAvailable()) {
-                final ProgressDialog progressDialog = ProgressDialog.show(Login.this, "Please wait...", "Proccessing...", true);
-
-                (firebaseAuth.signInWithEmailAndPassword(txtEmailLogin, txtPwd.getText().toString()))
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
-
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
-
-                                    // Toast.makeText(Login.this, txtEmailLogin.substring(0, txtEmailLogin.length() - 10), Toast.LENGTH_SHORT).show();
-
-                                    Intent i = new Intent(Login.this, MainActivity.class);
-                                    startActivity(i);
-                                    finish();
-                                } else {
-//                                Log.e("ERROR", task.getException().toString());
-                                    Toast.makeText(Login.this, "Invalid .. Please Try Again", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-            } else {
-                Toast.makeText(Login.this, "No Internet", Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(MemberActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private boolean isNetworkAvailable() {

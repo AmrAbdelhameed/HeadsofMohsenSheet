@@ -13,18 +13,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Login"
-            android:label="Mo7sen_OSC">
+            android:name=".Home"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".Login"
+            android:label="Login As Head" />
+        <activity
             android:name=".MainActivity"
-            android:label="All Members">
-        </activity>
+            android:label="Show All Members" />
         <activity
             android:name=".AddFriend"
             android:label="Add Member">
@@ -32,6 +33,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.amr.headsofmohsensheet.MainActivity" />
         </activity>
+        <activity
+            android:name=".MemberActivity"
+            android:label="Login As Member" />
+        <activity
+            android:name=".ShowAllMembersAsMember"
+            android:label="Show All Members" />
     </application>
 
 </manifest>

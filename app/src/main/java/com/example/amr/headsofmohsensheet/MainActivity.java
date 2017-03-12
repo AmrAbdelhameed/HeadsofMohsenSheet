@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-      //  Toast.makeText(MainActivity.this, user.getEmail().substring(0, user.getEmail().length() - 10), Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(MainActivity.this, user.getEmail().substring(0, user.getEmail().length() - 10), Toast.LENGTH_SHORT).show();
 
         lv = (ListView) findViewById(R.id.listView1);
         textempty = (TextView) findViewById(R.id.textempty);
@@ -175,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 FirebaseAuth.getInstance().signOut();
-                                finish();
-                                Intent intent = new Intent(getApplicationContext(), Login.class);
+                                Intent intent = new Intent(getApplicationContext(), Home.class);
                                 startActivity(intent);
+                                finish();
                             }
                         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
