@@ -3,7 +3,6 @@ package com.example.amr.headsofmohsensheet;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,10 +36,8 @@ public class AddFriend extends AppCompatActivity {
     String userr_id = "";
     private String userId;
     TextView T, MoT, MoM, TS;
-    String email1;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
-    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +47,13 @@ public class AddFriend extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        pref = getApplication().getSharedPreferences("Options1", MODE_PRIVATE);
-        email1 = pref.getString("head1", "");
-
         firebaseAuth = FirebaseAuth.getInstance();
         // getuserId
         user = firebaseAuth.getCurrentUser();
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
 
-        mFirebaseDatabase = mFirebaseInstance.getReference(email1);
+        mFirebaseDatabase = mFirebaseInstance.getReference(user.getEmail().substring(0, user.getEmail().length() - 10));
 
         name = (TextView) findViewById(R.id.editTextName);
         NofMeetings = (TextView) findViewById(R.id.editTextNofMeetings);
@@ -253,7 +247,7 @@ public class AddFriend extends AppCompatActivity {
                 return true;
 
             case R.id.home:
-                finish();
+                Toast.makeText(AddFriend.this, "braaaa", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
@@ -348,8 +342,8 @@ public class AddFriend extends AppCompatActivity {
         if (extras != null) {
             int Value = extras.getInt("id");
             if (Value > 0) {
-                if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Try Again ... ", Toast.LENGTH_SHORT).show();
+                if (name.getText().toString().isEmpty() || NofTasks.getText().toString().isEmpty() || NofMeetings.getText().toString().isEmpty() || TaskMo7sen.getText().toString().isEmpty() || MeetingsMo7sens.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Enter All Inputs ... ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNetworkAvailable()) {
                         updateUser(nname, nemail, nphone, nstreet, ndescrip, userr_id);
@@ -362,8 +356,8 @@ public class AddFriend extends AppCompatActivity {
                     }
                 }
             } else {
-                if (name.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter Member ... ", Toast.LENGTH_SHORT).show();
+                if (name.getText().toString().isEmpty() || NofTasks.getText().toString().isEmpty() || NofMeetings.getText().toString().isEmpty() || TaskMo7sen.getText().toString().isEmpty() || MeetingsMo7sens.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please Enter All Inputs ... ", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isNetworkAvailable()) {
                         createUser(nname, nemail, nphone, nstreet, ndescrip);

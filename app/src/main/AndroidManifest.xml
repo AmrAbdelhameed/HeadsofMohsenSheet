@@ -14,24 +14,20 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login"
-            android:label="Mo7sen_OSC"
-            android:launchMode="singleInstance"
-            android:taskAffinity="">
+            android:label="Mo7sen_OSC">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:label="All Members"
-            android:launchMode="singleInstance"
-            android:taskAffinity="">
+        <activity
+            android:name=".MainActivity"
+            android:label="All Members">
         </activity>
-        <activity android:name=".AddFriend"
-            android:label="Add Member"
-            android:launchMode="singleInstance"
-            android:taskAffinity="">
+        <activity
+            android:name=".AddFriend"
+            android:label="Add Member">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.amr.headsofmohsensheet.MainActivity" />

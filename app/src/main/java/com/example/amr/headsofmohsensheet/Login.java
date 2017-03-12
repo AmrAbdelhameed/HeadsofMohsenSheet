@@ -2,7 +2,6 @@ package com.example.amr.headsofmohsensheet;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
     private EditText txtPwd;
-    SharedPreferences.Editor editor;
+    public String c;
     String txtEmailLogin;
     private FirebaseAuth firebaseAuth;
 
@@ -126,10 +125,7 @@ public class Login extends AppCompatActivity {
                                     Toast.makeText(Login.this, "Login successful", Toast.LENGTH_LONG).show();
 
                                     // Toast.makeText(Login.this, txtEmailLogin.substring(0, txtEmailLogin.length() - 10), Toast.LENGTH_SHORT).show();
-                                    SharedPreferences pref = getApplicationContext().getSharedPreferences("Options", MODE_PRIVATE);
-                                    editor = pref.edit();
-                                    editor.putString("head", txtEmailLogin.substring(0, txtEmailLogin.length() - 10));
-                                    editor.commit();
+
                                     Intent i = new Intent(Login.this, MainActivity.class);
                                     startActivity(i);
                                     finish();
