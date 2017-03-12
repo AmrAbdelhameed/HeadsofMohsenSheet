@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,10 +32,11 @@ public class AddFriend extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     int id_To_Update = 0;
-    TextView name, phone, email, street, descrip;
+    TextView name, NofMeetings, NofTasks, TaskMo7sen, MeetingsMo7sens, Total, M_over_T, M_over_M, TotalScore;
     String usu = "";
     String userr_id = "";
     private String userId;
+    TextView T, MoT, MoM, TS;
     String email1;
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
@@ -61,10 +62,21 @@ public class AddFriend extends AppCompatActivity {
         mFirebaseDatabase = mFirebaseInstance.getReference(email1);
 
         name = (TextView) findViewById(R.id.editTextName);
-        phone = (TextView) findViewById(R.id.editTextPhone);
-        email = (TextView) findViewById(R.id.editTextEmail);
-        street = (TextView) findViewById(R.id.editTextStreet);
-        descrip = (TextView) findViewById(R.id.editTextCity);
+        NofMeetings = (TextView) findViewById(R.id.editTextNofMeetings);
+        NofTasks = (TextView) findViewById(R.id.editTextNofTasks);
+        TaskMo7sen = (TextView) findViewById(R.id.editTextTaskMo7sen);
+        MeetingsMo7sens = (TextView) findViewById(R.id.editTextMeetingsMo7sens);
+
+        Total = (TextView) findViewById(R.id.editTextTotal);
+        M_over_T = (TextView) findViewById(R.id.editTextM_over_T);
+        M_over_M = (TextView) findViewById(R.id.editTextM_over_M);
+        TotalScore = (TextView) findViewById(R.id.editTextTotalScore);
+
+        T = (TextView) findViewById(R.id.textTotal);
+        MoT = (TextView) findViewById(R.id.textM_over_T);
+        MoM = (TextView) findViewById(R.id.textM_over_M);
+        TS = (TextView) findViewById(R.id.textTotalScore);
+
 
         Bundle extras = getIntent().getExtras();
 
@@ -93,25 +105,71 @@ public class AddFriend extends AppCompatActivity {
                 name.setClickable(false);
                 name.setCursorVisible(false);
 
-                phone.setText(usphone);
-                phone.setFocusable(false);
-                phone.setClickable(false);
-                phone.setCursorVisible(false);
+                NofTasks.setText(usemail);
+                NofTasks.setFocusable(false);
+                NofTasks.setClickable(false);
+                NofTasks.setCursorVisible(false);
 
-                email.setText(usemail);
-                email.setFocusable(false);
-                email.setClickable(false);
-                email.setCursorVisible(false);
+                NofMeetings.setText(usphone);
+                NofMeetings.setFocusable(false);
+                NofMeetings.setClickable(false);
+                NofMeetings.setCursorVisible(false);
 
-                street.setText(usaddress);
-                street.setFocusable(false);
-                street.setClickable(false);
-                street.setCursorVisible(false);
+                TaskMo7sen.setText(usaddress);
+                TaskMo7sen.setFocusable(false);
+                TaskMo7sen.setClickable(false);
+                TaskMo7sen.setCursorVisible(false);
 
-                descrip.setText(usdesc);
-                descrip.setFocusable(false);
-                descrip.setClickable(false);
-                descrip.setCursorVisible(false);
+                MeetingsMo7sens.setText(usdesc);
+                MeetingsMo7sens.setFocusable(false);
+                MeetingsMo7sens.setClickable(false);
+                MeetingsMo7sens.setCursorVisible(false);
+
+                /////////////////////////////////////////////////////////
+
+                T.setVisibility(View.VISIBLE);
+                MoT.setVisibility(View.VISIBLE);
+                MoM.setVisibility(View.VISIBLE);
+                TS.setVisibility(View.VISIBLE);
+
+                Double f1 = Double.parseDouble(usaddress);
+                Double f2 = Double.parseDouble(usdesc);
+                double res = f1 + f2;
+
+                Total.setVisibility(View.VISIBLE);
+                Total.setText(String.valueOf(res));
+                Total.setFocusable(false);
+                Total.setClickable(false);
+                Total.setCursorVisible(false);
+
+                Double f3 = Double.parseDouble(usaddress);
+                Double f4 = Double.parseDouble(usemail);
+                double res2 = f3 / f4;
+
+                M_over_T.setVisibility(View.VISIBLE);
+                M_over_T.setText(String.valueOf(res2));
+                M_over_T.setFocusable(false);
+                M_over_T.setClickable(false);
+                M_over_T.setCursorVisible(false);
+
+                Double f5 = Double.parseDouble(usdesc);
+                Double f6 = Double.parseDouble(usphone);
+                double res3 = f5 / f6;
+
+                M_over_M.setVisibility(View.VISIBLE);
+                M_over_M.setText(String.valueOf(res3));
+                M_over_M.setFocusable(false);
+                M_over_M.setClickable(false);
+                M_over_M.setCursorVisible(false);
+
+                double res4 = res3 + res2;
+
+                TotalScore.setVisibility(View.VISIBLE);
+                TotalScore.setText(String.valueOf(res4));
+                TotalScore.setFocusable(false);
+                TotalScore.setClickable(false);
+                TotalScore.setCursorVisible(false);
+
             }
         }
     }
@@ -134,6 +192,16 @@ public class AddFriend extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.Edit_Contact:
+
+                T.setVisibility(View.INVISIBLE);
+                MoT.setVisibility(View.INVISIBLE);
+                MoM.setVisibility(View.INVISIBLE);
+                TS.setVisibility(View.INVISIBLE);
+                Total.setVisibility(View.INVISIBLE);
+                M_over_T.setVisibility(View.INVISIBLE);
+                M_over_M.setVisibility(View.INVISIBLE);
+                TotalScore.setVisibility(View.INVISIBLE);
+
                 Button b = (Button) findViewById(R.id.button1);
                 b.setVisibility(View.VISIBLE);
                 name.setEnabled(true);
@@ -141,25 +209,25 @@ public class AddFriend extends AppCompatActivity {
                 name.setClickable(true);
                 name.setCursorVisible(true);
 
-                phone.setEnabled(true);
-                phone.setFocusableInTouchMode(true);
-                phone.setClickable(true);
-                phone.setCursorVisible(true);
+                NofMeetings.setEnabled(true);
+                NofMeetings.setFocusableInTouchMode(true);
+                NofMeetings.setClickable(true);
+                NofMeetings.setCursorVisible(true);
 
-                email.setEnabled(true);
-                email.setFocusableInTouchMode(true);
-                email.setClickable(true);
-                email.setCursorVisible(true);
+                NofTasks.setEnabled(true);
+                NofTasks.setFocusableInTouchMode(true);
+                NofTasks.setClickable(true);
+                NofTasks.setCursorVisible(true);
 
-                street.setEnabled(true);
-                street.setFocusableInTouchMode(true);
-                street.setClickable(true);
-                street.setCursorVisible(true);
+                TaskMo7sen.setEnabled(true);
+                TaskMo7sen.setFocusableInTouchMode(true);
+                TaskMo7sen.setClickable(true);
+                TaskMo7sen.setCursorVisible(true);
 
-                descrip.setEnabled(true);
-                descrip.setFocusableInTouchMode(true);
-                descrip.setClickable(true);
-                descrip.setCursorVisible(true);
+                MeetingsMo7sens.setEnabled(true);
+                MeetingsMo7sens.setFocusableInTouchMode(true);
+                MeetingsMo7sens.setClickable(true);
+                MeetingsMo7sens.setCursorVisible(true);
 
                 return true;
 
@@ -271,10 +339,10 @@ public class AddFriend extends AppCompatActivity {
     public void run(View view) {
 
         String nname = name.getText().toString();
-        String nemail = email.getText().toString();
-        String nphone = phone.getText().toString();
-        String nstreet = street.getText().toString();
-        String ndescrip = descrip.getText().toString();
+        String nemail = NofTasks.getText().toString();
+        String nphone = NofMeetings.getText().toString();
+        String nstreet = TaskMo7sen.getText().toString();
+        String ndescrip = MeetingsMo7sens.getText().toString();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {

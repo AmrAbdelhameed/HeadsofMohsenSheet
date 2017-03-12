@@ -43,7 +43,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextEmail"
+                android:id="@+id/editTextNofTasks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -58,7 +58,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextPhone"
+                android:id="@+id/editTextNofMeetings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -73,7 +73,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextStreet"
+                android:id="@+id/editTextTaskMo7sen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -88,7 +88,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
-                android:id="@+id/editTextCity"
+                android:id="@+id/editTextMeetingsMo7sens"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -101,12 +101,81 @@
                 android:layout_alignEnd="@+id/textView3"
                 android:layout_alignRight="@+id/textView3"
                 android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:background="#3D9471"
                 android:onClick="run"
                 android:text="Done"
                 android:textAllCaps="false"
                 android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/textTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Total Mo7sens"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:inputType="number"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textM_over_T"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Mo7sens/Tasks"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextM_over_T"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:inputType="number"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textM_over_M"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Mo7sens/Meetings"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextM_over_M"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:inputType="number"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textTotalScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="Total Score"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/editTextTotalScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:inputType="number"
+                android:visibility="invisible" />
 
         </LinearLayout>
     </ScrollView>
