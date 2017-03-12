@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = Login.class.getSimpleName();
+    private static final String TAG = Home.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     ListView lv;

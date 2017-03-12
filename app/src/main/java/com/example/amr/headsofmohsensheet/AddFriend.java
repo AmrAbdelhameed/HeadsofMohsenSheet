@@ -27,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AddFriend extends AppCompatActivity {
 
-    private static final String TAG = Login.class.getSimpleName();
+    private static final String TAG = Home.class.getSimpleName();
     private FirebaseAuth firebaseAuth;
     private FirebaseUser user;
     int id_To_Update = 0;

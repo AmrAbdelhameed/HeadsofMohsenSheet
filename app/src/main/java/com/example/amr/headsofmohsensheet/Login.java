@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Login extends AppCompatActivity {
+
     private EditText txtPwd;
     String txtEmailLogin;
     private FirebaseAuth firebaseAuth;
