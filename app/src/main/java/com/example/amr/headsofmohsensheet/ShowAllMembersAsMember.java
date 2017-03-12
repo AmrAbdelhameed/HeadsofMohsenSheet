@@ -116,12 +116,11 @@ public class ShowAllMembersAsMember extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("iduser", specimens_id.get(arg2));
-                dataBundle.putString("nameuser", specimens_name.get(arg2));
-                dataBundle.putString("emailuser", specimens_email.get(arg2)); // NofTasks
-                dataBundle.putString("phoneuser", specimens_phone.get(arg2));
-                dataBundle.putString("addressuser", specimens_street.get(arg2));
-                dataBundle.putString("descuser", specimens_desc.get(arg2));
+                dataBundle.putString("nameuser1", specimens_name.get(arg2));
+                dataBundle.putString("emailuser1", specimens_email.get(arg2)); // NofTasks
+                dataBundle.putString("phoneuser1", specimens_phone.get(arg2));
+                dataBundle.putString("addressuser1", specimens_street.get(arg2));
+                dataBundle.putString("descuser1", specimens_desc.get(arg2));
 
                 //   Toast.makeText(ShowAllMembersAsMember.this, specimens_id.get(arg2) + specimens_name.get(arg2) + specimens_email.get(arg2) + specimens_phone.get(arg2) + specimens_street.get(arg2) + specimens_desc.get(arg2), Toast.LENGTH_SHORT).show();
 

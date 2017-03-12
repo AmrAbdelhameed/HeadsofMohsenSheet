@@ -6,18 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class DetailsMember extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseUser user;
     TextView name, NofMeetings, NofTasks, TaskMo7sen, MeetingsMo7sens, Total, M_over_T, M_over_M, TotalScore;
-    private DatabaseReference mFirebaseDatabase;
-    private FirebaseDatabase mFirebaseInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +16,6 @@ public class DetailsMember extends AppCompatActivity {
         setContentView(R.layout.activity_details_member);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-        // getuserId
-        user = firebaseAuth.getCurrentUser();
-
-        mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        mFirebaseDatabase = mFirebaseInstance.getReference(user.getEmail().substring(0, user.getEmail().length() - 10));
 
         name = (TextView) findViewById(R.id.editTextName);
         NofMeetings = (TextView) findViewById(R.id.editTextNofMeetings);
@@ -47,12 +30,11 @@ public class DetailsMember extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        String usname = extras.getString("nameuser");
-        String usemail = extras.getString("emailuser");
-        String usphone = extras.getString("phoneuser");
-        String usaddress = extras.getString("addressuser");
-        String usdesc = extras.getString("descuser");
-        String usid = extras.getString("iduser");
+        String usname = extras.getString("nameuser1");
+        String usemail = extras.getString("emailuser1");
+        String usphone = extras.getString("phoneuser1");
+        String usaddress = extras.getString("addressuser1");
+        String usdesc = extras.getString("descuser1");
 
         name.setText(usname);
         name.setFocusable(false);
