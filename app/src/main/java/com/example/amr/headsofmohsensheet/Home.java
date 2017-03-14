@@ -33,7 +33,6 @@ public class Home extends AppCompatActivity {
 
                 Intent i = new Intent(Home.this, Login.class);
                 startActivity(i);
-                finish();
 
             }
         });

@@ -95,7 +95,6 @@ public class MemberActivity extends AppCompatActivity {
             Intent intent = new Intent(MemberActivity.this, ShowAllMembersAsMember.class);
             intent.putExtras(dataBundle);
             startActivity(intent);
-            finish();
         } else {
             Toast.makeText(MemberActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
         }
