@@ -37,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
     ListView lv;
     TextView textempty;
     ArrayAdapter<String> adapter;
-    ArrayList<String> specimens_name, specimens_email, specimens_phone, specimens_street, specimens_desc, specimens_id;
+    ArrayList<String> specimens_name, specimens_email, specimens_phone, specimens_street, specimens_desc, specimens_id, specimens_total;
     int size_arraylist = 0;
+    custom CustomAdapter;
     DatabaseReference databaseReference;
 
     @Override
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         specimens_street = new ArrayList<>();
         specimens_desc = new ArrayList<>();
         specimens_id = new ArrayList<>();
+        specimens_total = new ArrayList<>();
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 specimens_street.clear();
                 specimens_desc.clear();
                 specimens_id.clear();
+                specimens_total.clear();
                 for (DataSnapshot child : children) {
 
                     String uid = child.getKey();
@@ -83,15 +86,27 @@ public class MainActivity extends AppCompatActivity {
                     String phone = child.getValue(Member.class).getNumberofmeetings();
                     String street = child.getValue(Member.class).getTask_mo7sens();
                     String desc = child.getValue(Member.class).getMeetings_mo7sens();
+
+                    Double f3 = Double.parseDouble(street);
+                    Double f4 = Double.parseDouble(email);
+                    double res2 = f3 / f4;
+
+                    Double f5 = Double.parseDouble(desc);
+                    Double f6 = Double.parseDouble(phone);
+                    double res3 = f5 / f6;
+
+                    double res = res2 + res3;
+
                     specimens_name.add(name);
                     specimens_email.add(email);
                     specimens_phone.add(phone);
                     specimens_street.add(street);
                     specimens_desc.add(desc);
                     specimens_id.add(uid);
+                    specimens_total.add(String.valueOf(res));
                 }
-                adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, specimens_name);
-                lv.setAdapter(adapter);
+                CustomAdapter = new custom(MainActivity.this, specimens_name, specimens_total);
+                lv.setAdapter(CustomAdapter);
                 size_arraylist = specimens_name.size();
                 if (size_arraylist == 0) {
                     textempty.setVisibility(View.VISIBLE);
@@ -112,18 +127,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
 
-                Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
+                // TODO Auto-generated method stub
+                int id_To_Search = index + 1;
 
                 Bundle dataBundle = new Bundle();
-                dataBundle.putString("iduser1", specimens_id.get(index));
-                dataBundle.putString("nameuser1", specimens_name.get(index));
-                dataBundle.putString("emailuser1", specimens_email.get(index)); // NofTasks
-                dataBundle.putString("phoneuser1", specimens_phone.get(index));
-                dataBundle.putString("addressuser1", specimens_street.get(index));
-                dataBundle.putString("descuser1", specimens_desc.get(index));
-                i.putExtras(dataBundle);
 
-                startActivity(i);
+                dataBundle.putInt("id", id_To_Search);
+                dataBundle.putString("iduser", specimens_id.get(index));
+                dataBundle.putString("nameuser", specimens_name.get(index));
+                dataBundle.putString("emailuser", specimens_email.get(index)); // NofTasks
+                dataBundle.putString("phoneuser", specimens_phone.get(index));
+                dataBundle.putString("addressuser", specimens_street.get(index));
+                dataBundle.putString("descuser", specimens_desc.get(index));
+                //Toast.makeText(ShowContacts.this, specimens_id.get(position) + specimens_name.get(position) + specimens_email.get(position) + specimens_phone.get(position) + specimens_street.get(position) + specimens_desc.get(position), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), AddFriend.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
 
             }
         });
@@ -132,22 +151,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> arg0, View v,
                                            int arg2, long arg3) {
 
-                // TODO Auto-generated method stub
-                int id_To_Search = arg2 + 1;
+                Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
 
                 Bundle dataBundle = new Bundle();
+                dataBundle.putString("iduser1", specimens_id.get(arg2));
+                dataBundle.putString("nameuser1", specimens_name.get(arg2));
+                dataBundle.putString("emailuser1", specimens_email.get(arg2)); // NofTasks
+                dataBundle.putString("phoneuser1", specimens_phone.get(arg2));
+                dataBundle.putString("addressuser1", specimens_street.get(arg2));
+                dataBundle.putString("descuser1", specimens_desc.get(arg2));
+                i.putExtras(dataBundle);
 
-                dataBundle.putInt("id", id_To_Search);
-                dataBundle.putString("iduser", specimens_id.get(arg2));
-                dataBundle.putString("nameuser", specimens_name.get(arg2));
-                dataBundle.putString("emailuser", specimens_email.get(arg2)); // NofTasks
-                dataBundle.putString("phoneuser", specimens_phone.get(arg2));
-                dataBundle.putString("addressuser", specimens_street.get(arg2));
-                dataBundle.putString("descuser", specimens_desc.get(arg2));
-                //Toast.makeText(ShowContacts.this, specimens_id.get(position) + specimens_name.get(position) + specimens_email.get(position) + specimens_phone.get(position) + specimens_street.get(position) + specimens_desc.get(position), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), AddFriend.class);
-                intent.putExtras(dataBundle);
-                startActivity(intent);
+                startActivity(i);
 
                 return true;
             }
