@@ -96,7 +96,7 @@ public class Login extends AppCompatActivity {
                 if (s.equals("Linux")) {
                     txtEmailLogin = "islam123@gmail.com";
                 }
-                if (s.equals("English Heros")) {
+                if (s.equals("English_Heros")) {
                     txtEmailLogin = "shrook123@gmail.com";
                 }
             }
