@@ -2,7 +2,6 @@ package com.example.amr.headsofmohsensheet;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -232,8 +231,8 @@ public class AddFriend extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 RemoveContact(userr_id);
                                 Toast.makeText(getApplicationContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
+//                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                startActivity(intent);
                                 finish();
                             }
                         }).setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -348,8 +347,8 @@ public class AddFriend extends AppCompatActivity {
                     if (isNetworkAvailable()) {
                         updateUser(nname, nemail, nphone, nstreet, ndescrip, userr_id);
                         Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
                         finish();
                     } else {
                         Toast.makeText(AddFriend.this, "No Internet", Toast.LENGTH_SHORT).show();
@@ -362,8 +361,8 @@ public class AddFriend extends AppCompatActivity {
                     if (isNetworkAvailable()) {
                         createUser(nname, nemail, nphone, nstreet, ndescrip);
                         Toast.makeText(getApplicationContext(), "Done", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                        startActivity(intent);
                         finish();
                     } else {
                         Toast.makeText(AddFriend.this, "No Internet", Toast.LENGTH_SHORT).show();

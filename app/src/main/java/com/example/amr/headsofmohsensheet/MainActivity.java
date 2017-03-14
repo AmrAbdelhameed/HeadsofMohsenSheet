@@ -110,7 +110,27 @@ public class MainActivity extends AppCompatActivity {
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+            public void onItemClick(AdapterView<?> arg0, View arg1, int index, long arg3) {
+
+                Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
+
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("iduser1", specimens_id.get(index));
+                dataBundle.putString("nameuser1", specimens_name.get(index));
+                dataBundle.putString("emailuser1", specimens_email.get(index)); // NofTasks
+                dataBundle.putString("phoneuser1", specimens_phone.get(index));
+                dataBundle.putString("addressuser1", specimens_street.get(index));
+                dataBundle.putString("descuser1", specimens_desc.get(index));
+                i.putExtras(dataBundle);
+
+                startActivity(i);
+
+            }
+        });
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v,
+                                           int arg2, long arg3) {
 
                 // TODO Auto-generated method stub
                 int id_To_Search = arg2 + 1;
@@ -128,25 +148,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), AddFriend.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
-            }
-        });
-        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
-            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-                                           int index, long arg3) {
-
-                Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
-
-                Bundle dataBundle = new Bundle();
-                dataBundle.putString("iduser1", specimens_id.get(index));
-                dataBundle.putString("nameuser1", specimens_name.get(index));
-                dataBundle.putString("emailuser1", specimens_email.get(index)); // NofTasks
-                dataBundle.putString("phoneuser1", specimens_phone.get(index));
-                dataBundle.putString("addressuser1", specimens_street.get(index));
-                dataBundle.putString("descuser1", specimens_desc.get(index));
-                i.putExtras(dataBundle);
-
-                startActivity(i);
 
                 return true;
             }
