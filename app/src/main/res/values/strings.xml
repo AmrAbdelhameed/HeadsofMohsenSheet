@@ -15,4 +15,13 @@
         <item>Blender</item>
         <item>English_Heros</item>
     </string-array>
+
+    <string-array name="mo7sens">
+        <item>0 Mo7sen</item>
+        <item>1 Mo7sen</item>
+        <item>2 Mo7sen</item>
+        <item>3 Mo7sen</item>
+        <item>4 Mo7sen</item>
+    </string-array>
+
 </resources>

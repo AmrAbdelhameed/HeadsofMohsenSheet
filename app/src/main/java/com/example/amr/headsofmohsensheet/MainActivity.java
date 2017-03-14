@@ -130,19 +130,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//
-//            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-//                                           int index, long arg3) {
-//
-//                if (!specimens_phone.get(index).isEmpty()) {
-//                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", specimens_phone.get(index), null)));
-//                } else {
-//                    Toast.makeText(MainActivity.this, "There is not phone of this contact", Toast.LENGTH_SHORT).show();
-//                }
-//                return true;
-//            }
-//        });
+        lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v,
+                                           int index, long arg3) {
+
+                Intent i = new Intent(MainActivity.this, AddTaskActivity.class);
+
+                Bundle dataBundle = new Bundle();
+                dataBundle.putString("iduser1", specimens_id.get(index));
+                dataBundle.putString("nameuser1", specimens_name.get(index));
+                dataBundle.putString("emailuser1", specimens_email.get(index)); // NofTasks
+                dataBundle.putString("phoneuser1", specimens_phone.get(index));
+                dataBundle.putString("addressuser1", specimens_street.get(index));
+                dataBundle.putString("descuser1", specimens_desc.get(index));
+                i.putExtras(dataBundle);
+
+                startActivity(i);
+
+                return true;
+            }
+        });
     }
 
     @Override

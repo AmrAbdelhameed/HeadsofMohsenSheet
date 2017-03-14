@@ -40,7 +40,15 @@
         <activity
             android:name=".ShowAllMembersAsMember"
             android:label="Show All Members" />
-        <activity android:name=".DetailsMember"></activity>
+        <activity android:name=".DetailsMember" />
+        <activity
+            android:name=".AddTaskActivity"
+            android:label="Add Task Or Meeting"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.amr.headsofmohsensheet.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
