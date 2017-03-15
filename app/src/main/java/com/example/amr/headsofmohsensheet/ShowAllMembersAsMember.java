@@ -30,9 +30,10 @@ public class ShowAllMembersAsMember extends AppCompatActivity {
     private FirebaseUser user;
     ListView lv;
     TextView textempty;
+    custom CustomAdapter;
     ArrayAdapter<String> adapter;
     String Value;
-    ArrayList<String> specimens_name, specimens_email, specimens_phone, specimens_street, specimens_desc, specimens_id;
+    ArrayList<String> specimens_total, specimens_name, specimens_email, specimens_phone, specimens_street, specimens_desc, specimens_id;
     int size_arraylist = 0;
     DatabaseReference databaseReference;
 
@@ -55,6 +56,7 @@ public class ShowAllMembersAsMember extends AppCompatActivity {
         specimens_street = new ArrayList<>();
         specimens_desc = new ArrayList<>();
         specimens_id = new ArrayList<>();
+        specimens_total = new ArrayList<>();
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
@@ -78,6 +80,7 @@ public class ShowAllMembersAsMember extends AppCompatActivity {
                 specimens_street.clear();
                 specimens_desc.clear();
                 specimens_id.clear();
+                specimens_total.clear();
                 for (DataSnapshot child : children) {
 
                     String uid = child.getKey();
@@ -86,15 +89,27 @@ public class ShowAllMembersAsMember extends AppCompatActivity {
                     String phone = child.getValue(Member.class).getNumberofmeetings();
                     String street = child.getValue(Member.class).getTask_mo7sens();
                     String desc = child.getValue(Member.class).getMeetings_mo7sens();
+
+                    Double f3 = Double.parseDouble(street);
+                    Double f4 = Double.parseDouble(email);
+                    double res2 = f3 / f4;
+
+                    Double f5 = Double.parseDouble(desc);
+                    Double f6 = Double.parseDouble(phone);
+                    double res3 = f5 / f6;
+
+                    double res = res2 + res3;
+
                     specimens_name.add(name);
                     specimens_email.add(email);
                     specimens_phone.add(phone);
                     specimens_street.add(street);
                     specimens_desc.add(desc);
                     specimens_id.add(uid);
+                    specimens_total.add(String.valueOf(res));
                 }
-                adapter = new ArrayAdapter<String>(ShowAllMembersAsMember.this, android.R.layout.simple_list_item_1, specimens_name);
-                lv.setAdapter(adapter);
+                CustomAdapter = new custom(ShowAllMembersAsMember.this, specimens_name, specimens_total);
+                lv.setAdapter(CustomAdapter);
                 size_arraylist = specimens_name.size();
                 if (size_arraylist == 0) {
                     textempty.setVisibility(View.VISIBLE);
