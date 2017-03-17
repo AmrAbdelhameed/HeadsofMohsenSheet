@@ -36,6 +36,8 @@ public class DetailsMember extends AppCompatActivity {
         String usaddress = extras.getString("addressuser1");
         String usdesc = extras.getString("descuser1");
 
+        setTitle("Details Data of "+usname);
+
         name.setText(usname);
         name.setFocusable(false);
         name.setClickable(false);

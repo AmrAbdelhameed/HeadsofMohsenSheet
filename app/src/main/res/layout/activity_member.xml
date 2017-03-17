@@ -10,45 +10,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.amr.headsofmohsensheet.MemberActivity">
 
-    <FrameLayout
-        android:id="@+id/content_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <Spinner
-                    android:id="@+id/static_spinner"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"/>
+    <Spinner
+        android:id="@+id/static_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"/>
 
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="300dp"
-                    android:layout_height="70dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal|top"
-                    android:layout_marginTop="20dp"
-                    android:background="#3D9471"
-                    android:onClick="btnUserLogin_Click"
-                    android:text="Done"
-                    android:textAllCaps="false"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal|top"
+        android:background="#3D9471"
+        android:onClick="btnUserLogin_Click"
+        android:layout_marginTop="25dp"
+        android:text="Done"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/static_spinner"
+        android:layout_centerHorizontal="true" />
 
-            </LinearLayout>
-        </ScrollView>
-
-    </FrameLayout>
 </RelativeLayout>
